@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.dovar.dtoast.DToast
 import com.engineer.imitate.ImitateApplication
 import com.engineer.imitate.R
+import com.engineer.imitate.util.toastShort
 import kotlinx.android.synthetic.main.activity_fake_jike.*
 
 
@@ -20,8 +21,23 @@ class FakeJikeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fake_jike)
+
+        add.setOnClickListener {
+            toastShort("got it")
+        }
+
         follow.setOnClickListener {
             animation_border.startAnim()
+        }
+
+        var fold  = true
+        text.setOnClickListener {
+            if (fold) {
+                text.text = getString(R.string.click_revert)
+            } else {
+                text.text = getString(R.string.click)
+            }
+            fold = !fold
         }
 
         button.setOnClickListener {
@@ -67,6 +83,6 @@ class FakeJikeActivity : AppCompatActivity() {
         println("runtime processor = ${runtime.availableProcessors()}")
 
 //        throw NullPointerException()
-        throw IncompatibleClassChangeError()
+//        throw IncompatibleClassChangeError()
     }
 }
