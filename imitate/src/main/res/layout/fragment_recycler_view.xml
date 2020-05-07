@@ -1,62 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.fragments.RecyclerViewFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.RecyclerViewFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.RecyclerViewFragment">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
-        <TextView
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="200dp"
+                android:layout_height="34dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_card"
+                android:text="1111..."
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="200dp"
+                android:layout_height="34dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_card"
+                android:text="1111..."
+                android:textColor="@color/white" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/blue_round_card"
                 android:text="RecyclerView 自定义 ItemDecoration 实现 Overlap 效果"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/round_card"/>
+                android:background="@drawable/round_card" />
 
-        <TextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/red_round_card"
                 android:text="RecyclerView 自定义 LayoutManager 实现 Overlap 效果"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-        <include layout="@layout/fragment_layout_manager"/>
+            <include layout="@layout/fragment_layout_manager" />
 
 
-        <TextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/red_round_card"
                 android:text="RecyclerView 自定义 LayoutManager 实现画廊效果"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/round_card"/>
+                android:background="@drawable/round_card" />
 
+
+            <TextView
+                android:id="@+id/emoji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/red_round_card"
+                android:text=""
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/red_round_card"
+                android:text="横向滑动️"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <com.engineer.imitate.ui.widget.more.OverScrollLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/round_card"
+                    android:overScrollMode="never" />
+
+            </com.engineer.imitate.ui.widget.more.OverScrollLayout>
+
+            <com.engineer.imitate.ui.widget.more.DZStickyNavLayouts
+                android:id="@+id/head_home_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_card" />
+            </com.engineer.imitate.ui.widget.more.DZStickyNavLayouts>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <!-- 右边菜单 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/cpb_green"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="右边菜单"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_close_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="关闭" />
 
     </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.drawerlayout.widget.DrawerLayout>
