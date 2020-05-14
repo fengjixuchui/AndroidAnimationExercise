@@ -4,9 +4,11 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.RecyclerViewFragment">
+    tools:context=".ui.fragments.RecyclerViewFragment"
+    tools:openDrawer="end">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.fragments.RecyclerViewFragment">
@@ -101,18 +103,14 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
-            <com.engineer.imitate.ui.widget.more.OverScrollLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_3"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="150dp"
+                android:background="@drawable/round_card"
+                android:overScrollMode="never" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/round_card"
-                    android:overScrollMode="never" />
-
-            </com.engineer.imitate.ui.widget.more.OverScrollLayout>
 
             <com.engineer.imitate.ui.widget.more.DZStickyNavLayouts
                 android:id="@+id/head_home_layout"
@@ -138,25 +136,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/cpb_green"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:background="@color/black"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.engineer.imitate.ui.widget.custom.SlideArrowView
+            android:id="@+id/slide_view"
+            android:layout_width="18dp"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="右边菜单"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="8dp" />
 
-        <Button
-            android:id="@+id/btn_close_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="关闭" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/innerList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

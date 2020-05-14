@@ -2,10 +2,8 @@ package com.engineer.imitate.ui.fragments
 
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.engineer.imitate.R
+import com.engineer.imitate.ui.list.adapter.ImageAdapter
 import com.engineer.imitate.ui.list.adapter.LargeImageAdapter
 import com.engineer.imitate.ui.list.adapter.SimpleImageAdapter
 import com.engineer.imitate.ui.list.decoration.OverLapDecoration
@@ -21,6 +20,7 @@ import com.engineer.imitate.ui.widget.more.DZStickyNavLayouts
 import com.engineer.imitate.util.dp2px
 import kotlinx.android.synthetic.main.fragment_layout_manager.*
 import kotlinx.android.synthetic.main.fragment_recycler_view.*
+import kotlin.math.abs
 
 /**
  * https://github.com/Spikeysanju/ZoomRecylerLayout
@@ -78,10 +78,27 @@ class RecyclerViewFragment : Fragment() {
                 drawer_layout.openDrawer(GravityCompat.END)
             }
         })
-        btn_close_right.setOnClickListener {
-            drawer_layout.closeDrawer(GravityCompat.END)
-        }
 
+        innerList.layoutManager =
+            LinearLayoutManager(context)
+        innerList.adapter = ImageAdapter(getList())
+        webView.settings?.apply {
+            domStorageEnabled = true
+            javaScriptEnabled = true
+        }
+        webView.loadUrl("https://ddadaal.me/")
+
+        drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                Log.e("tag", "offset == $slideOffset")
+                slide_view.update(1 - slideOffset)
+                if (slideOffset < 0.1) {
+                    webView.visibility = View.INVISIBLE
+                } else {
+                    webView.visibility = View.VISIBLE
+                }
+            }
+        })
 
         for (i in 1..5) {
             val view = LayoutInflater.from(context).inflate(R.layout.image_item, null)
@@ -96,8 +113,30 @@ class RecyclerViewFragment : Fragment() {
 
         stack_view_layout_1.layoutDirection = View.LAYOUT_DIRECTION_LTR
         stack_view_layout_2.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        var x = 0f
+        var y = 0f
+        nestedScrollview.setOnTouchListener { v, event ->
 
-
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    x = event.x
+                    y = event.y
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val deltaXOrigin = event.x - x
+                    val deltaX = abs(deltaXOrigin)
+                    val deltaY = abs(event.y - y)
+                    Log.e("tag", "deltaX = $deltaX,deltaY = $deltaY")
+                    if (deltaX > deltaY) {
+                        if (deltaXOrigin < 0 && deltaX > 100) {
+                            drawer_layout.openDrawer(GravityCompat.END)
+                        }
+                        return@setOnTouchListener true
+                    }
+                }
+            }
+            false
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="prepare datas">
