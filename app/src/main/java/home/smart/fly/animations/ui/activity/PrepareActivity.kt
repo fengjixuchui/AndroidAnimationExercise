@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import home.smart.fly.animations.R
-import home.smart.fly.animations.utils.MyMoreText
+import home.smart.fly.animations.utils.*
 import home.smart.fly.animations.widget.dp2px
 import kotlinx.android.synthetic.main.activity_prepare.*
 
@@ -28,6 +28,10 @@ class PrepareActivity : AppCompatActivity() {
         Glide.with(this).load(url).into(webImage)
 
         color_text.setTextColor(Color.parseColor("#ff3366"))
+
+        val up = resources.getDrawable(R.drawable.ic_expand_less_black_24dp)
+        val down = resources.getDrawable(R.drawable.ic_expand_more_black_24dp)
+        UtilMoreText(color_text, getString(R.string.text_long_chinese), up, down).createImg()
 
         MyMoreText.getInstance()
             .getLastIndexForLimit(more_text_view, 1, getString(R.string.text_long_chinese))
@@ -50,6 +54,7 @@ class PrepareActivity : AppCompatActivity() {
                 content1.text = result
                 content2.text = result
                 content2.invalidate()
+                content3.text = result
             }
 
         })
@@ -72,5 +77,11 @@ class PrepareActivity : AppCompatActivity() {
             nested_scrollview.scrollBy(0, 300)
         }
 
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        lg("content3 width is ${content3.measuredWidth}")
+        content3.maxWidth = screenWidth - (32 + 24 + 6).dp
     }
 }

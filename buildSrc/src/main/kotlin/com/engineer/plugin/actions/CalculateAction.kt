@@ -46,10 +46,23 @@ class CalculateAction(project: Project) : BaseAction(project) {
 
         val android = project.extensions.getByName("android")
         if (android is BaseAppModuleExtension) {
+            android.applicationVariants.all {variant ->
+                variant.packageApplicationProvider.configure { config ->
+                    config.apkNames.forEach {
+                        println(it)
+                    }
+                }
+
+            }
+
             android.applicationVariants.all { variant ->
                 variant.packageApplicationProvider.configure {
                     val dir = it.outputDirectory
-                    val filePath = getApkFullPath(dir.absolutePath, variant.name)
+
+                    println("dir is " + it)
+                    println("dir output is "+dir)
+//                    val filePath = getApkFullPath(dir.absolutePath, variant.name)
+                    val filePath = ""
                     val file = File(filePath)
                     if (file.exists()) {
                         val info = String.format(
