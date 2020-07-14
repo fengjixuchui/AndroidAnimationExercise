@@ -23,6 +23,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.engineer.imitate.model.FragmentItem
 import com.engineer.imitate.ui.activity.ReverseGifActivity
+import com.engineer.imitate.util.AnimDelegate
 import com.list.rados.fast_list.FastListAdapter
 import com.list.rados.fast_list.bind
 import com.skydoves.transformationlayout.onTransformationStartContainer
@@ -112,8 +113,9 @@ class KotlinRootActivity : AppCompatActivity() {
     private fun initList(): MutableList<FragmentItem> {
         return mutableListOf(
             FragmentItem("/anim/entrance", "entrance"),
+            FragmentItem("/anim/motion_layout", "motion_layout"),
             FragmentItem("/anim/github", "github features"),
-            FragmentItem("/anim/pure_3d_shapre", "3D shape"),
+            FragmentItem("/anim/pure_3d_share", "3D shape"),
             FragmentItem("/anim/circleLoading", "circle-loading"),
             FragmentItem("/anim/coroutines", "coroutines"),
             FragmentItem("/anim/recycler_view", "RecyclerView"),
@@ -139,9 +141,14 @@ class KotlinRootActivity : AppCompatActivity() {
         }).start()
 
         val list = initList()
-        adapter = recyclerView.bind(list, R.layout.view_item) { item: FragmentItem ->
+        adapter = recyclerView.bind(list, R.layout.view_item) { item: FragmentItem, _: Int ->
             desc.text = item.name
             path.text = item.path
+
+            path.setOnClickListener {
+                AnimDelegate.apply(context, path, gif, shell_root)
+            }
+
             shell.setOnClickListener {
                 gif.hide()
 
