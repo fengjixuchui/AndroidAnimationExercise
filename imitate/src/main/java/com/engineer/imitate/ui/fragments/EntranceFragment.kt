@@ -36,8 +36,6 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 import kotlinx.android.synthetic.main.fragment_entrance.*
-import kotlinx.android.synthetic.main.fragment_entrance.shell
-import kotlinx.android.synthetic.main.view_item_h_image.*
 import java.io.File
 
 
@@ -196,6 +194,11 @@ class EntranceFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter.onClear()
+    }
+
     class MyBottomSheetFragment : SuperBottomSheetFragment() {
         override fun onCreateView(
             inflater: LayoutInflater,
@@ -272,13 +275,11 @@ class EntranceFragment : Fragment() {
             imageView.setOnClickListener {
                 val pos = holder.adapterPosition
                 val url = datas[pos]
-                transferee.apply {
+                transferee?.apply(
                     TransferConfig.build()
                         .setImageLoader(GlideImageLoader.with(ImitateApplication.application))
                         .bindImageView(imageView, url)
-
-                }
-                transferee?.show()
+                )?.show()
             }
             return holder
         }

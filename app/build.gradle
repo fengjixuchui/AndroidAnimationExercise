@@ -27,6 +27,7 @@ android {
         }
     }
     compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
     defaultConfig {
         applicationId "home.smart.fly.animations"
         minSdkVersion ext.minSdkVersion
@@ -128,6 +129,7 @@ android {
         timeOutInMs 5 * 1000
         installOptions '-d'
     }
+    ndkVersion ext.ndk_version
 }
 
 //jacocoAndroidUnitTestReport {
